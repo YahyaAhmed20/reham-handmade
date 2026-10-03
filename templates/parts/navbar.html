@@ -1,0 +1,375 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg" id="nav">
+
+    <div class="container">
+
+        <!-- =========================
+             BRAND / LOGO
+        ========================== -->
+
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'home:home' %}">
+
+            <img
+                src="{% static 'img/logo.png' %}"
+                alt="الذكان - Reham rady"
+                class="brand-logo"
+            >
+
+        </a>
+
+
+        <!-- =========================
+             MOBILE TOGGLER
+        ========================== -->
+
+        <button
+            class="navbar-toggler border-0 shadow-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navmenu"
+            aria-controls="navmenu"
+            aria-expanded="false"
+            aria-label="فتح القائمة"
+        >
+
+            <i class="fas fa-bars"></i>
+
+        </button>
+
+
+        <!-- =========================
+             NAVIGATION
+        ========================== -->
+
+        <div class="collapse navbar-collapse" id="navmenu">
+
+            <ul class="navbar-nav mx-auto align-items-lg-center">
+
+              <li class="nav-item">
+    <a class="nav-link active" href="{% url 'home:home' %}">
+        الرئيسية
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'home:home' %}#categories">
+        التصنيفات
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'home:home' %}#about">
+        من نحن
+    </a>
+</li>
+
+                
+
+            </ul>
+
+
+            <!-- =========================
+                 NAV ACTIONS
+            ========================== -->
+
+            <div class="nav-actions d-flex align-items-center gap-2">
+
+                <!-- Search -->
+
+               
+
+
+                <!-- Cart -->
+
+               <a
+    href="{% url 'home:cart' %}"
+    class="nav-cart"
+    title="سلة المشتريات"
+    aria-label="سلة المشتريات"
+>
+    <i class="fas fa-shopping-bag"></i>
+
+    <span class="cart-count">
+        {{ cart_count }}
+    </span>
+</a>
+
+                <!-- Main CTA -->
+
+   
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<style>
+   /* =========================================
+   DAKKAN NAVBAR
+========================================= */
+
+#nav {
+    background: #fffaf4;
+    border-bottom: 1px solid rgba(151, 104, 55, 0.12);
+    padding: 14px 0;
+    position: relative;
+    z-index: 1000;
+}
+
+
+/* =========================================
+   LOGO
+========================================= */
+
+.brand-logo {
+    width: 300px;
+    height: auto;
+    max-width: 65%;         /* حماية ضد زحمة زر القائمة */
+    display: block;
+    object-fit: contain;
+    transition: 0.3s ease;
+}
+
+.brand-logo:hover {
+    transform: scale(1.02);
+}
+
+
+/* =========================================
+   NAV LINKS
+========================================= */
+
+#nav .navbar-nav {
+    gap: 8px;
+}
+
+#nav .nav-link {
+    color: #5a3a24;
+    font-family: "Cairo", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 10px 13px;
+    position: relative;
+    transition: 0.3s ease;
+}
+
+#nav .nav-link:hover,
+#nav .nav-link.active {
+    color: #b27a3c;
+}
+
+
+/* Underline */
+
+#nav .nav-link::after {
+    content: "";
+    position: absolute;
+    right: 13px;
+    left: 13px;
+    bottom: 3px;
+
+    height: 2px;
+
+    background: #b27a3c;
+
+    transform: scaleX(0);
+    transform-origin: center;
+
+    transition: 0.3s ease;
+}
+
+#nav .nav-link:hover::after,
+#nav .nav-link.active::after {
+    transform: scaleX(1);
+}
+
+
+/* =========================================
+   NAV ACTIONS
+========================================= */
+
+.nav-actions {
+    margin-right: 15px;
+}
+
+
+/* Search */
+
+#navSearchBtn {
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid rgba(178, 122, 60, 0.2);
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #7b512e;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.3s ease;
+}
+
+#navSearchBtn:hover {
+    background: #b27a3c;
+    color: white;
+}
+
+
+/* Cart */
+
+.nav-cart {
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid rgba(178, 122, 60, 0.2);
+    border-radius: 50%;
+
+    color: #7b512e;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    text-decoration: none;
+
+    transition: 0.3s ease;
+}
+
+.nav-cart:hover {
+    background: #b27a3c;
+    color: white;
+}
+
+
+/* Cart Count */
+
+.cart-count {
+    position: absolute;
+
+    top: -5px;
+    left: -5px;
+
+    width: 18px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: #b27a3c;
+    color: white;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* CTA */
+
+.nav-cta {
+    background: #7b512e !important;
+    color: #fff !important;
+
+    border-radius: 30px;
+
+    padding: 10px 18px !important;
+
+    margin-right: 5px;
+
+    font-weight: 700 !important;
+
+    text-decoration: none;
+
+    transition: 0.3s ease;
+}
+
+.nav-cta::after {
+    display: none !important;
+}
+
+.nav-cta:hover {
+    background: #b27a3c !important;
+    color: #fff !important;
+
+    transform: translateY(-2px);
+}
+
+
+/* Mobile Button */
+
+.navbar-toggler i {
+    color: #7b512e;
+    font-size: 1.35rem;
+}
+
+
+/* =========================================
+   TABLET & MOBILE
+========================================= */
+
+@media (max-width: 991px) {
+
+    #nav {
+        padding: 12px 0;
+    }
+
+    .brand-logo {
+        width: 230px;
+        max-width: 70%;
+    }
+
+    #navmenu {
+        padding-top: 20px;
+    }
+
+    #nav .navbar-nav {
+        align-items: stretch !important;
+        gap: 0;
+    }
+
+    #nav .nav-link {
+        padding: 12px 8px;
+        text-align: right;
+    }
+
+    #nav .nav-link::after {
+        display: none;
+    }
+
+    .nav-actions {
+        margin-right: 0;
+        margin-top: 15px;
+        padding-bottom: 10px;
+    }
+
+    .nav-cta {
+        flex: 1;
+        text-align: center;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+    .brand-logo {
+        width: 250px;
+    }
+
+}
+</style>

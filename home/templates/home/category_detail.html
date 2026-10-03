@@ -1,0 +1,563 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ category.name }} | الذكان{% endblock %}
+
+
+{% block body %}
+
+<!-- =========================================================
+     CATEGORY HERO
+========================================================= -->
+<section class="dk-category-hero">
+
+    <div class="dk-hero-pattern"></div>
+
+    <div class="container">
+
+        <div class="dk-category-hero-content text-center"
+             data-aos="fade-up">
+
+            <span class="dk-eyebrow">
+                <i class="fas fa-sparkles"></i>
+                اكتشفي عالم الذكان
+            </span>
+
+            <h1>{{ category.name }}</h1>
+
+            <div class="dk-divider dk-divider-center">
+                <span></span>
+                <i class="fas fa-heart"></i>
+                <span></span>
+            </div>
+
+            {% if category.description %}
+                <p>{{ category.description }}</p>
+            {% else %}
+                <p>
+                    مجموعة مختارة بعناية من
+                    <strong>{{ category.name }}</strong>
+                    لتجدي ما يشبهك.
+                </p>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PRODUCTS GRID
+========================================================= -->
+<section class="dk-products dk-section">
+
+    <div class="container">
+
+        {% if products %}
+
+            <div class="dk-section-heading" data-aos="fade-up">
+
+                <div>
+                    <span class="dk-section-label">المنتجات</span>
+                    <h2>
+                        كل ما يخص
+                        <span>{{ category.name }}</span>
+                    </h2>
+                </div>
+
+                <span class="dk-products-count">
+                    <i class="fas fa-box-open"></i>
+                    {{ products|length }} منتج
+                </span>
+
+            </div>
+
+
+            <div class="row g-4 mt-3">
+
+                {% for product in products %}
+
+                    <div class="col-6 col-lg-4"
+                         data-aos="fade-up"
+                         data-aos-delay="{{ forloop.counter0 }}00">
+
+                        <article class="dk-product-card">
+
+                            <div class="dk-product-image">
+
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}"
+                                         alt="{{ product.name }}">
+                                {% else %}
+                                    <div class="dk-product-placeholder">
+                                        <i class="fas fa-gem"></i>
+                                    </div>
+                                {% endif %}
+
+                                {% if product.is_new %}
+                                    <span class="dk-product-badge badge-new">
+                                        جديد
+                                    </span>
+                                {% elif product.is_featured %}
+                                    <span class="dk-product-badge badge-featured">
+                                        مميز
+                                    </span>
+                                {% endif %}
+
+                                <button type="button"
+                                        class="dk-favorite"
+                                        aria-label="أضيفي للمفضلة">
+                                    <i class="far fa-heart"></i>
+                                </button>
+
+                            </div>
+
+
+                            <div class="dk-product-body">
+
+                                <span class="dk-product-category">
+                                    {{ category.name }}
+                                </span>
+
+                                <h3>{{ product.name }}</h3>
+
+                                <p>
+                                    {% if product.description %}
+                                        {{ product.description|truncatechars:70 }}
+                                    {% else %}
+                                        قطعة مميزة من مختارات الذكان.
+                                    {% endif %}
+                                </p>
+
+
+                                <div class="dk-product-footer">
+
+                                    <div class="dk-product-price">
+                                        {% if product.old_price %}
+                                            <del>{{ product.old_price }} ج.م</del>
+                                        {% endif %}
+                                        <strong>{{ product.price }} ج.م</strong>
+                                    </div>
+
+                                    <button type="button"
+                                            class="dk-product-view"
+                                            data-product-id="{{ product.id }}">
+                                        عرض
+                                        <i class="fas fa-arrow-left"></i>
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="dk-empty-state" data-aos="zoom-in">
+
+                <div class="dk-empty-icon">
+                    <i class="fas fa-box-open"></i>
+                </div>
+
+                <h3>لا توجد منتجات حالياً</h3>
+
+                <p>
+                    سيتم إضافة منتجات
+                    <strong>{{ category.name }}</strong>
+                    قريباً.
+                </p>
+
+                <a href="{% url 'home:home' %}"
+                   class="dk-btn dk-btn-primary">
+                    <i class="fas fa-arrow-right"></i>
+                    العودة للرئيسية
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PRODUCT MODAL
+========================================================= -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content dk-product-modal">
+
+            <button type="button"
+                    class="btn-close dk-modal-close"
+                    data-bs-dismiss="modal"
+                    aria-label="إغلاق"></button>
+
+            <div class="row g-0">
+
+                <div class="col-lg-6">
+                    <div class="dk-modal-gallery">
+                        <div class="dk-modal-main-image">
+                            <div class="dk-modal-loader" id="modalLoader">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                            <img id="modalProductImage" src="" alt="">
+                        </div>
+                        <div class="dk-modal-thumbnails"
+                             id="modalProductThumbnails"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="dk-modal-info">
+
+                        <span class="dk-section-label">
+                            الذكان · صُنع يدوياً
+                        </span>
+
+                        <h2 id="modalProductName"></h2>
+
+                        <div class="dk-modal-price"
+                             id="modalProductPrice"></div>
+
+                        <p id="modalProductDescription"
+                           class="dk-modal-description"></p>
+
+                        <div class="dk-quantity-box">
+                            <label>الكمية</label>
+                            <div class="dk-quantity-controls">
+                                <button type="button" id="quantityMinus">−</button>
+                                <input type="number" id="productQuantity"
+                                       value="1" min="1" readonly>
+                                <button type="button" id="quantityPlus">+</button>
+                            </div>
+                        </div>
+
+                        <div id="customizationBox"
+                             class="dk-customization-box d-none">
+                            <label for="productNote">
+                                ملاحظات أو تفاصيل خاصة
+                            </label>
+                            <textarea id="productNote" rows="3"
+                                placeholder="اكتبي أي تفاصيل أو تخصيصات مطلوبة..."></textarea>
+                        </div>
+
+                        <button type="button"
+                                id="addToCartBtn"
+                                class="dk-btn dk-btn-primary w-100">
+                            اطلب الآن
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- =========================================================
+     PAGE-SPECIFIC STYLES (فقط الخاص بالصفحة)
+========================================================= -->
+<style>
+
+.dk-category-hero {
+    position: relative;
+    padding: 90px 0 70px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 80% 30%,
+            rgba(184, 137, 77, 0.12), transparent 40%),
+        linear-gradient(135deg,
+            #fffdf9 0%, #f8f1e7 55%, #eee2d3 100%);
+}
+
+.dk-category-hero .dk-hero-pattern {
+    position: absolute;
+    width: 550px;
+    height: 550px;
+    left: -240px;
+    top: -220px;
+    border-radius: 50%;
+    border: 1px solid rgba(184, 137, 77, 0.15);
+    box-shadow:
+        0 0 0 70px rgba(184, 137, 77, 0.03),
+        0 0 0 140px rgba(184, 137, 77, 0.02);
+    pointer-events: none;
+}
+
+.dk-category-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.dk-category-hero-content h1 {
+    margin: 0;
+    color: var(--dk-black);
+    font-size: clamp(38px, 5vw, 62px);
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.dk-category-hero-content > p {
+    margin: 20px auto 0;
+    max-width: 560px;
+    color: var(--dk-muted);
+    font-size: 16px;
+    line-height: 2;
+}
+
+.dk-category-hero-content > p strong {
+    color: var(--dk-brown);
+}
+
+.dk-products-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 30px;
+    background: rgba(184, 137, 77, 0.1);
+    color: var(--dk-brown);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.dk-products-count i { color: var(--dk-gold); }
+
+
+@media (max-width: 991px) {
+    .dk-category-hero { padding: 65px 0 55px; }
+}
+
+@media (max-width: 767px) {
+    .dk-category-hero { padding: 50px 0 45px; }
+    .dk-category-hero-content h1 { font-size: 34px; }
+    .dk-category-hero-content > p { font-size: 14px; }
+}
+
+@media (max-width: 480px) {
+    .dk-category-hero-content h1 {
+        font-size: 28px;
+        letter-spacing: -0.5px;
+    }
+    .dk-products-count {
+        font-size: 11px;
+        padding: 8px 14px;
+    }
+}
+
+</style>
+
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+<script>
+    window.addToCartUrl = "{% url 'home:add_to_cart' %}";
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const modalElement = document.getElementById("productModal");
+    if (!modalElement) return;
+
+    const productModal = new bootstrap.Modal(modalElement);
+
+    const productImage       = document.getElementById("modalProductImage");
+    const productName        = document.getElementById("modalProductName");
+    const productPrice       = document.getElementById("modalProductPrice");
+    const productDescription = document.getElementById("modalProductDescription");
+    const thumbnails         = document.getElementById("modalProductThumbnails");
+    const quantityInput      = document.getElementById("productQuantity");
+    const customizationBox   = document.getElementById("customizationBox");
+    const productNote        = document.getElementById("productNote");
+    const modalLoader        = document.getElementById("modalLoader");
+
+    let currentProductId = null;
+
+    document.querySelectorAll(".dk-product-view").forEach(button => {
+
+        button.addEventListener("click", async function () {
+
+            currentProductId = this.dataset.productId;
+
+            productImage.classList.remove("loaded");
+            modalLoader.style.display = "flex";
+
+            try {
+
+                const response = await fetch(`/product/${currentProductId}/`);
+                if (!response.ok) throw new Error("Failed");
+
+                const product = await response.json();
+
+                productName.textContent        = product.name;
+                productPrice.textContent       = `${product.price} ج.م`;
+                productDescription.textContent = product.description || "";
+
+                quantityInput.value = 1;
+                productNote.value   = "";
+
+                thumbnails.innerHTML = "";
+
+                if (product.images && product.images.length > 0) {
+
+                    productImage.onload = function () {
+                        modalLoader.style.display = "none";
+                        productImage.classList.add("loaded");
+                    };
+
+                    productImage.src = product.images[0];
+                    productImage.alt = product.name;
+
+                    product.images.forEach((image, index) => {
+
+                        const thumb = document.createElement("img");
+                        thumb.src       = image;
+                        thumb.alt       = product.name;
+                        thumb.className = "dk-modal-thumbnail";
+
+                        if (index === 0) thumb.classList.add("active");
+
+                        thumb.addEventListener("click", function () {
+
+                            productImage.classList.remove("loaded");
+                            modalLoader.style.display = "flex";
+
+                            productImage.onload = function () {
+                                modalLoader.style.display = "none";
+                                productImage.classList.add("loaded");
+                            };
+
+                            productImage.src = image;
+
+                            document.querySelectorAll(".dk-modal-thumbnail")
+                                .forEach(img => img.classList.remove("active"));
+
+                            this.classList.add("active");
+                        });
+
+                        thumbnails.appendChild(thumb);
+                    });
+
+                } else {
+                    productImage.src = "";
+                    modalLoader.style.display = "none";
+                }
+
+                if (product.allow_customization) {
+                    customizationBox.classList.remove("d-none");
+                } else {
+                    customizationBox.classList.add("d-none");
+                }
+
+                productModal.show();
+
+            } catch (error) {
+                console.error(error);
+                modalLoader.style.display = "none";
+                alert("حدث خطأ أثناء تحميل المنتج.");
+            }
+
+        });
+
+    });
+
+
+    document.getElementById("quantityPlus").addEventListener("click", function () {
+        quantityInput.value = parseInt(quantityInput.value) + 1;
+    });
+
+    document.getElementById("quantityMinus").addEventListener("click", function () {
+        const q = parseInt(quantityInput.value);
+        if (q > 1) quantityInput.value = q - 1;
+    });
+
+
+    document.getElementById("addToCartBtn")
+        .addEventListener("click", async function () {
+
+            if (!currentProductId) return;
+
+            const btn = this;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإضافة...';
+
+            try {
+
+                const response = await fetch(window.addToCartUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": getCookie("csrftoken")
+                    },
+                    body: JSON.stringify({
+                        product_id: currentProductId,
+                        quantity:   parseInt(quantityInput.value),
+                        note:       productNote.value.trim()
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    window.location.href = "/cart/added/";
+                } else {
+                    alert(data.message || "حدث خطأ أثناء إضافة المنتج.");
+                    btn.disabled = false;
+                    btn.innerHTML = 'اطلب الآن <i class="fas fa-arrow-left"></i>';
+                }
+
+            } catch (error) {
+                console.error(error);
+                alert("حدث خطأ أثناء إضافة المنتج.");
+                btn.disabled = false;
+                btn.innerHTML = 'اطلب الآن <i class="fas fa-arrow-left"></i>';
+            }
+
+        });
+
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.substring(0, name.length + 1) === name + "=") {
+                    cookieValue = decodeURIComponent(
+                        cookie.substring(name.length + 1)
+                    );
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+});
+</script>
+
+{% endblock body %}

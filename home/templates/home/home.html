@@ -1,0 +1,2000 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    الذكان | صُنع يدوياً
+{% endblock %}
+
+
+{% block body %}
+
+<style>
+/* =========================================================
+   DAKKAN — BRAND IDENTITY
+========================================================= */
+
+:root {
+    --dk-black: #211914;
+    --dk-dark: #30231c;
+    --dk-brown: #6f4930;
+    --dk-brown-dark: #4f3222;
+    --dk-gold: #b8894d;
+    --dk-gold-light: #d6b47a;
+    --dk-bronze: #94683d;
+    --dk-cream: #f8f1e7;
+    --dk-cream-dark: #eee2d3;
+    --dk-white: #fffdf9;
+    --dk-text: #3e3027;
+    --dk-muted: #806f61;
+    --dk-border: rgba(111, 73, 48, 0.14);
+    --dk-shadow: 0 20px 60px rgba(48, 35, 28, 0.10);
+    --dk-transition: all 0.35s ease;
+}
+
+body {
+    background: var(--dk-white);
+    color: var(--dk-text);
+    font-family: "Cairo", sans-serif;
+    overflow-x: hidden;
+}
+
+a { text-decoration: none; }
+img { max-width: 100%; }
+button { font-family: inherit; }
+
+::selection {
+    background: var(--dk-gold);
+    color: #fff;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.dk-hero {
+    position: relative;
+    min-height: 82vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 80% 35%,
+            rgba(184, 137, 77, 0.14), transparent 35%),
+        linear-gradient(135deg,
+            #fffdf9 0%, #f8f1e7 55%, #eee2d3 100%);
+}
+
+.dk-hero-pattern {
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    left: -280px;
+    top: -250px;
+    border-radius: 50%;
+    border: 1px solid rgba(184, 137, 77, 0.15);
+    box-shadow:
+        0 0 0 70px rgba(184, 137, 77, 0.025),
+        0 0 0 140px rgba(184, 137, 77, 0.02);
+    pointer-events: none;
+}
+
+.dk-hero-content { max-width: 620px; }
+
+.dk-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    margin-bottom: 22px;
+    border: 1px solid rgba(184, 137, 77, 0.25);
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.55);
+    color: var(--dk-bronze);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.dk-eyebrow i { color: var(--dk-gold); }
+
+.dk-hero h1 {
+    margin: 0;
+    color: var(--dk-black);
+    font-size: clamp(42px, 5vw, 72px);
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+.dk-hero h1 span {
+    display: block;
+    color: var(--dk-gold);
+    font-weight: 700;
+}
+
+.dk-hero-content > p {
+    max-width: 560px;
+    margin: 25px 0 30px;
+    color: var(--dk-muted);
+    font-size: 17px;
+    line-height: 2;
+}
+
+.dk-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.dk-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 50px;
+    padding: 0 24px;
+    border: 0;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--dk-transition);
+}
+
+.dk-btn-primary {
+    background: var(--dk-brown);
+    color: #fff;
+    box-shadow: 0 12px 30px rgba(79, 50, 34, 0.18);
+}
+
+.dk-btn-primary:hover {
+    background: var(--dk-gold);
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+.dk-btn-outline {
+    border: 1px solid var(--dk-border);
+    color: var(--dk-brown);
+    background: transparent;
+}
+
+.dk-btn-outline:hover {
+    border-color: var(--dk-gold);
+    background: rgba(184, 137, 77, 0.08);
+    color: var(--dk-brown);
+}
+
+.dk-btn-light {
+    background: var(--dk-white);
+    color: var(--dk-brown);
+}
+
+.dk-btn-light:hover {
+    background: var(--dk-gold);
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   HERO VISUAL
+========================================================= */
+
+.dk-hero-visual {
+    position: relative;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dk-hero-glow {
+    position: absolute;
+    width: 430px;
+    height: 430px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle,
+            rgba(184, 137, 77, 0.22),
+            rgba(184, 137, 77, 0.03) 60%,
+            transparent 72%);
+    filter: blur(5px);
+}
+
+.dk-hero-logo {
+    position: relative;
+    width: min(430px, 90%);
+    padding: 35px;
+    border-radius: 50%;
+    background:
+        linear-gradient(145deg,
+            rgba(255,255,255,0.92),
+            rgba(238,226,211,0.65));
+    border: 1px solid rgba(184, 137, 77, 0.22);
+    box-shadow: 0 30px 80px rgba(79, 50, 34, 0.16);
+    backdrop-filter: blur(10px);
+    z-index: 2;
+}
+
+.dk-hero-logo img {
+    width: 100%;
+    display: block;
+    border-radius: 50%;
+}
+
+.dk-floating-card {
+    position: absolute;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255, 253, 249, 0.94);
+    border: 1px solid rgba(184, 137, 77, 0.18);
+    border-radius: 14px;
+    box-shadow: 0 18px 45px rgba(48, 35, 28, 0.12);
+    backdrop-filter: blur(12px);
+}
+
+.dk-floating-card > i {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(184, 137, 77, 0.12);
+    color: var(--dk-gold);
+}
+
+.dk-floating-card strong,
+.dk-floating-card span { display: block; }
+
+.dk-floating-card strong {
+    color: var(--dk-brown);
+    font-size: 13px;
+}
+
+.dk-floating-card span {
+    margin-top: 2px;
+    color: var(--dk-muted);
+    font-size: 10px;
+}
+
+.dk-card-top { top: 95px; right: 0; }
+.dk-card-bottom { bottom: 85px; left: 0; }
+
+
+/* =========================================================
+   BRAND STRIP
+========================================================= */
+
+.dk-brand-strip {
+    background: var(--dk-brown);
+    padding: 20px 0;
+    color: #fff;
+}
+
+.dk-brand-items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.dk-brand-items > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.92;
+}
+
+.dk-brand-items i {
+    color: var(--dk-gold-light);
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.dk-section { padding: 110px 0; }
+
+.dk-section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.dk-section-heading.text-center {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.dk-section-label {
+    display: block;
+    margin-bottom: 12px;
+    color: var(--dk-gold);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.dk-section-heading h2,
+.dk-section-content h2 {
+    margin: 0;
+    color: var(--dk-black);
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.3;
+    font-weight: 800;
+}
+
+.dk-section-heading h2 span,
+.dk-section-content h2 span { color: var(--dk-gold); }
+
+.dk-section-heading > p {
+    max-width: 500px;
+    margin: 15px auto 0;
+    color: var(--dk-muted);
+    line-height: 1.9;
+}
+
+.dk-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.dk-divider span {
+    width: 55px;
+    height: 1px;
+    background: var(--dk-gold);
+}
+
+.dk-divider i {
+    color: var(--dk-gold);
+    font-size: 12px;
+}
+
+.dk-divider-center { justify-content: center; }
+
+
+/* =========================================================
+   CATEGORIES  ⭐ المحدث
+========================================================= */
+
+.dk-categories {
+    background: var(--dk-cream);
+    position: relative;
+    overflow: hidden;
+}
+
+.dk-categories::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    border: 1px solid rgba(184, 137, 77, 0.08);
+    top: -250px;
+    right: -250px;
+    pointer-events: none;
+}
+
+
+/* --- CARD --- */
+
+.dk-category-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--dk-border);
+    border-radius: 24px;
+    background: var(--dk-white);
+    box-shadow: 0 10px 40px rgba(48, 35, 28, 0.06);
+    transition: var(--dk-transition);
+}
+
+.dk-category-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(184, 137, 77, 0.4);
+    box-shadow: 0 25px 60px rgba(48, 35, 28, 0.14);
+}
+
+
+/* --- MEDIA (IMAGE) --- */
+
+.dk-category-media {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+    background: linear-gradient(145deg, #eee2d3, #f8f1e7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dk-category-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dk-category-card:hover .dk-category-media img {
+    transform: scale(1.1);
+}
+
+.dk-category-media-placeholder {
+    width: 110px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--dk-white);
+    color: var(--dk-gold);
+    font-size: 40px;
+    box-shadow: 0 15px 40px rgba(48, 35, 28, 0.1);
+    transition: var(--dk-transition);
+}
+
+.dk-category-card:hover .dk-category-media-placeholder {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.dk-category-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        transparent 50%,
+        rgba(33, 25, 20, 0.35) 100%
+    );
+    opacity: 0;
+    transition: var(--dk-transition);
+    pointer-events: none;
+}
+
+.dk-category-card:hover .dk-category-overlay {
+    opacity: 1;
+}
+
+.dk-category-count {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 30px;
+    background: rgba(255, 253, 249, 0.95);
+    color: var(--dk-brown);
+    font-size: 11px;
+    font-weight: 800;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 6px 18px rgba(48, 35, 28, 0.1);
+    z-index: 2;
+}
+
+.dk-category-count i {
+    color: var(--dk-gold);
+    font-size: 10px;
+}
+
+
+/* --- BODY --- */
+
+.dk-category-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 22px 20px 20px;
+    text-align: right;
+}
+
+.dk-category-body h3 {
+    margin: 0 0 8px;
+    color: var(--dk-brown);
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.3;
+    transition: var(--dk-transition);
+}
+
+.dk-category-card:hover .dk-category-body h3 {
+    color: var(--dk-gold);
+}
+
+.dk-category-body p {
+    flex: 1;
+    margin: 0 0 18px;
+    color: var(--dk-muted);
+    font-size: 13px;
+    line-height: 1.8;
+    min-height: 42px;
+}
+
+
+/* --- BUTTON --- */
+
+.dk-category-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 30px;
+    background: rgba(184, 137, 77, 0.1);
+    color: var(--dk-brown);
+    font-size: 12px;
+    font-weight: 800;
+    transition: var(--dk-transition);
+    align-self: flex-start;
+}
+
+.dk-category-btn i {
+    font-size: 11px;
+    transition: transform 0.35s ease;
+}
+
+.dk-category-card:hover .dk-category-btn {
+    background: var(--dk-brown);
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(79, 50, 34, 0.25);
+}
+
+.dk-category-card:hover .dk-category-btn i {
+    transform: translateX(-4px);
+}
+
+
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
+.dk-products { background: var(--dk-white); }
+
+.dk-product-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--dk-border);
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 8px 35px rgba(48, 35, 28, 0.05);
+    transition: var(--dk-transition);
+}
+
+.dk-product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--dk-shadow);
+    border-color: rgba(184, 137, 77, 0.3);
+}
+
+.dk-product-image {
+    position: relative;
+    height: 310px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dk-cream);
+    overflow: hidden;
+}
+
+.dk-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+}
+
+.dk-product-card:hover .dk-product-image img { transform: scale(1.06); }
+
+.dk-product-placeholder {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 253, 249, 0.85);
+    color: var(--dk-gold);
+    font-size: 50px;
+    box-shadow: 0 20px 50px rgba(48, 35, 28, 0.08);
+    transition: var(--dk-transition);
+}
+
+.dk-product-card:hover .dk-product-placeholder {
+    transform: scale(1.08) rotate(-3deg);
+}
+
+.dk-product-badge {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: var(--dk-brown);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    z-index: 2;
+}
+
+.dk-product-badge.badge-new { background: var(--dk-gold); }
+.dk-product-badge.badge-featured { background: var(--dk-brown); }
+
+.dk-favorite {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 253, 249, 0.9);
+    color: var(--dk-brown);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: var(--dk-transition);
+}
+
+.dk-favorite:hover {
+    background: var(--dk-gold);
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.dk-product-body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.dk-product-category {
+    color: var(--dk-gold);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.dk-product-body h3 {
+    margin: 7px 0;
+    color: var(--dk-brown);
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.4;
+}
+
+.dk-product-body p {
+    flex: 1;
+    min-height: 48px;
+    margin: 0 0 18px;
+    color: var(--dk-muted);
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.dk-product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid var(--dk-border);
+}
+
+.dk-product-price {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dk-product-price del {
+    color: var(--dk-muted);
+    font-size: 11px;
+    text-decoration: line-through;
+}
+
+.dk-product-price strong {
+    color: var(--dk-brown);
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.dk-product-view {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 16px;
+    border: 1px solid rgba(184, 137, 77, 0.35);
+    border-radius: 30px;
+    background: rgba(184, 137, 77, 0.06);
+    color: var(--dk-brown);
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--dk-transition);
+}
+
+.dk-product-view i {
+    font-size: 11px;
+    transition: transform 0.35s ease;
+}
+
+.dk-product-view:hover {
+    background: var(--dk-gold);
+    border-color: var(--dk-gold);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(184, 137, 77, 0.25);
+}
+
+.dk-product-view:hover i { transform: translateX(-4px); }
+
+
+/* =========================================================
+   STATEMENT
+========================================================= */
+
+.dk-statement {
+    position: relative;
+    padding: 130px 0;
+    background: linear-gradient(135deg, #211914, #4f3222);
+    color: #fff;
+    overflow: hidden;
+}
+
+.dk-statement::before,
+.dk-statement::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 1px solid rgba(214, 180, 122, 0.12);
+}
+
+.dk-statement::before { top: -160px; right: -100px; }
+.dk-statement::after { bottom: -180px; left: -100px; }
+
+.dk-statement-content {
+    position: relative;
+    z-index: 2;
+}
+
+.dk-statement-content > span {
+    color: var(--dk-gold-light);
+    font-family: "Dancing Script", cursive;
+    font-size: 25px;
+}
+
+.dk-statement-content h2 {
+    max-width: 700px;
+    margin: 15px auto;
+    font-size: clamp(35px, 5vw, 58px);
+    line-height: 1.3;
+    font-weight: 800;
+}
+
+.dk-statement-content h2 strong {
+    display: block;
+    color: var(--dk-gold-light);
+}
+
+.dk-statement-content p {
+    color: rgba(255,255,255,0.7);
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   WHY US
+========================================================= */
+
+.dk-why { background: var(--dk-cream); }
+
+.dk-feature {
+    height: 100%;
+    padding: 35px 28px;
+    text-align: center;
+    border: 1px solid var(--dk-border);
+    border-radius: 20px;
+    background: rgba(255,255,255,0.55);
+    transition: var(--dk-transition);
+}
+
+.dk-feature:hover {
+    background: var(--dk-white);
+    transform: translateY(-7px);
+    box-shadow: var(--dk-shadow);
+}
+
+.dk-feature-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(184,137,77,0.1);
+    color: var(--dk-gold);
+    font-size: 25px;
+    transition: var(--dk-transition);
+}
+
+.dk-feature:hover .dk-feature-icon {
+    background: var(--dk-brown);
+    color: var(--dk-gold-light);
+}
+
+.dk-feature h3 {
+    margin-bottom: 10px;
+    color: var(--dk-brown);
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.dk-feature p {
+    margin: 0;
+    color: var(--dk-muted);
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.dk-cta {
+    padding: 80px 0;
+    background: var(--dk-white);
+}
+
+.dk-cta-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 50px 60px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #6f4930, #30231c);
+    box-shadow: var(--dk-shadow);
+}
+
+.dk-cta-box span {
+    color: var(--dk-gold-light);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.dk-cta-box h2 {
+    margin: 7px 0 0;
+    color: #fff;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+}
+
+.dk-cta-box h2 strong { color: var(--dk-gold-light); }
+
+
+/* =========================================================
+   PRODUCT MODAL
+========================================================= */
+
+.dk-product-modal {
+    border: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    background: var(--dk-white);
+}
+
+.dk-modal-close {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 50%;
+    padding: 12px;
+    box-shadow: 0 6px 20px rgba(48, 35, 28, 0.12);
+    transition: var(--dk-transition);
+}
+
+.dk-modal-close:hover {
+    background: var(--dk-gold);
+    opacity: 1;
+}
+
+.dk-modal-gallery {
+    padding: 25px;
+    background: linear-gradient(145deg, #eee2d3, #f8f1e7);
+    height: 100%;
+}
+
+.dk-modal-main-image {
+    position: relative;
+    height: 420px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dk-modal-main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.dk-modal-main-image img.loaded { opacity: 1; }
+
+.dk-modal-loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dk-gold);
+    font-size: 28px;
+    background: rgba(255, 253, 249, 0.5);
+}
+
+.dk-modal-thumbnails {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.dk-modal-thumbnails::-webkit-scrollbar { height: 5px; }
+.dk-modal-thumbnails::-webkit-scrollbar-thumb {
+    background: var(--dk-gold);
+    border-radius: 10px;
+}
+
+.dk-modal-thumbnail {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: var(--dk-transition);
+}
+
+.dk-modal-thumbnail:hover,
+.dk-modal-thumbnail.active {
+    border-color: var(--dk-gold);
+    transform: translateY(-3px);
+}
+
+.dk-modal-info {
+    padding: 45px 35px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.dk-modal-info h2 {
+    margin: 10px 0 15px;
+    color: var(--dk-black);
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.dk-modal-price {
+    margin-bottom: 20px;
+    color: var(--dk-gold);
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.dk-modal-description {
+    margin: 0 0 10px;
+    color: var(--dk-muted);
+    line-height: 1.9;
+    font-size: 14px;
+}
+
+.dk-quantity-box { margin-top: 20px; }
+
+.dk-quantity-box label,
+.dk-customization-box label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--dk-text);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.dk-quantity-controls {
+    display: flex;
+    width: fit-content;
+    border: 1px solid var(--dk-border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.dk-quantity-controls button {
+    width: 45px;
+    height: 45px;
+    border: 0;
+    background: var(--dk-cream);
+    color: var(--dk-brown);
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--dk-transition);
+}
+
+.dk-quantity-controls button:hover {
+    background: var(--dk-gold);
+    color: #fff;
+}
+
+.dk-quantity-controls input {
+    width: 55px;
+    height: 45px;
+    border: 0;
+    text-align: center;
+    background: #fff;
+    color: var(--dk-brown);
+    font-weight: 800;
+    font-size: 15px;
+    outline: none;
+}
+
+.dk-customization-box { margin-top: 20px; }
+
+.dk-customization-box textarea {
+    width: 100%;
+    border: 1px solid var(--dk-border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    resize: vertical;
+    outline: none;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--dk-text);
+    background: #fff;
+    transition: var(--dk-transition);
+}
+
+.dk-customization-box textarea:focus {
+    border-color: var(--dk-gold);
+    box-shadow: 0 0 0 3px rgba(184, 137, 77, 0.12);
+}
+
+#addToCartBtn {
+    margin-top: 25px;
+    min-height: 52px;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.dk-empty-state {
+    max-width: 480px;
+    margin: 40px auto 0;
+    padding: 60px 30px;
+    text-align: center;
+    border: 1px dashed var(--dk-border);
+    border-radius: 24px;
+    background: var(--dk-cream);
+}
+
+.dk-empty-icon {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(184, 137, 77, 0.12);
+    color: var(--dk-gold);
+    font-size: 32px;
+}
+
+.dk-empty-state h3 {
+    margin: 0 0 10px;
+    color: var(--dk-brown);
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.dk-empty-state p {
+    margin: 0;
+    color: var(--dk-muted);
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .dk-hero { padding: 70px 0; }
+
+    .dk-hero-content {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .dk-hero-actions { justify-content: center; }
+
+    .dk-hero-content > p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .dk-hero-visual {
+        min-height: 430px;
+        margin-bottom: 20px;
+    }
+
+    .dk-hero-logo { width: 330px; }
+
+    .dk-card-top { top: 40px; right: 0; }
+    .dk-card-bottom { bottom: 30px; left: 0; }
+
+    .dk-brand-items { grid-template-columns: repeat(2, 1fr); }
+
+    .dk-section { padding: 80px 0; }
+
+    .dk-section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .dk-section-heading.text-center {
+        align-items: center;
+        text-align: center;
+    }
+
+    .dk-cta-box { padding: 40px; }
+
+    .dk-modal-main-image { height: 340px; }
+    .dk-modal-info { padding: 30px 25px; }
+    .dk-modal-info h2 { font-size: 24px; }
+
+    /* Categories */
+    .dk-category-media { height: 200px; }
+    .dk-category-body { padding: 18px 16px 16px; }
+    .dk-category-body h3 { font-size: 17px; }
+    .dk-category-body p { font-size: 12px; min-height: 38px; }
+}
+
+
+@media (max-width: 767px) {
+
+    .dk-hero { padding: 45px 0 65px; }
+    .dk-hero h1 { font-size: 42px; }
+    .dk-hero-content > p { font-size: 14px; }
+
+    .dk-hero-visual { min-height: 360px; }
+
+    .dk-hero-logo { width: 270px; padding: 25px; }
+
+    .dk-floating-card { padding: 9px 11px; }
+
+    .dk-floating-card > i {
+        width: 32px;
+        height: 32px;
+    }
+
+    .dk-floating-card strong { font-size: 11px; }
+    .dk-floating-card span { font-size: 9px; }
+
+    .dk-card-top { top: 25px; }
+    .dk-card-bottom { bottom: 10px; }
+
+    .dk-brand-items { gap: 12px; }
+    .dk-brand-items > div { font-size: 11px; }
+
+    .dk-section { padding: 65px 0; }
+
+    .dk-product-image { height: 250px; }
+
+    .dk-statement { padding: 90px 0; }
+
+    .dk-cta-box {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 35px 25px;
+    }
+
+    .dk-modal-main-image { height: 280px; }
+    .dk-modal-gallery { padding: 18px; }
+    .dk-modal-info { padding: 25px 20px; }
+    .dk-modal-info h2 { font-size: 22px; }
+    .dk-modal-price { font-size: 20px; }
+
+    /* Categories */
+    .dk-category-media { height: 170px; }
+
+    .dk-category-media-placeholder {
+        width: 80px;
+        height: 80px;
+        font-size: 30px;
+    }
+
+    .dk-category-count {
+        padding: 5px 10px;
+        font-size: 10px;
+        top: 12px;
+        right: 12px;
+    }
+
+    .dk-category-body { padding: 16px 14px 14px; }
+    .dk-category-body h3 { font-size: 15px; margin-bottom: 6px; }
+    .dk-category-body p {
+        font-size: 11px;
+        min-height: 34px;
+        margin-bottom: 14px;
+    }
+
+    .dk-category-btn {
+        padding: 8px 14px;
+        font-size: 11px;
+        gap: 6px;
+    }
+
+    .dk-category-btn i { font-size: 10px; }
+}
+
+
+@media (max-width: 480px) {
+
+    .dk-hero h1 {
+        font-size: 35px;
+        letter-spacing: -0.8px;
+    }
+
+    .dk-hero-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .dk-btn { width: 100%; }
+
+    .dk-hero-logo { width: 235px; }
+
+    .dk-card-top { right: -5px; }
+    .dk-card-bottom { left: -5px; }
+
+    .dk-brand-items { grid-template-columns: 1fr 1fr; }
+
+    .dk-product-image { height: 220px; }
+
+    .dk-product-body { padding: 15px; }
+    .dk-product-body h3 { font-size: 15px; }
+    .dk-product-category { font-size: 9px; }
+    .dk-product-body p { font-size: 10px; min-height: 40px; }
+
+    .dk-product-price strong { font-size: 14px; }
+    .dk-product-price del { font-size: 10px; }
+
+    .dk-product-view {
+        padding: 6px 10px;
+        font-size: 10px;
+        gap: 4px;
+    }
+
+    .dk-product-view i { font-size: 9px; }
+
+    /* Categories */
+    .dk-category-media { height: 140px; }
+
+    .dk-category-media-placeholder {
+        width: 65px;
+        height: 65px;
+        font-size: 24px;
+    }
+
+    .dk-category-count {
+        padding: 4px 8px;
+        font-size: 9px;
+        gap: 4px;
+        top: 10px;
+        right: 10px;
+    }
+
+    .dk-category-count i { font-size: 8px; }
+
+    .dk-category-body { padding: 14px 12px 12px; }
+    .dk-category-body h3 { font-size: 14px; }
+    .dk-category-body p {
+        font-size: 10px;
+        min-height: 30px;
+        margin-bottom: 12px;
+    }
+
+    .dk-category-btn {
+        padding: 7px 12px;
+        font-size: 10px;
+    }
+}
+</style>
+
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+<section class="dk-hero">
+
+    <div class="dk-hero-pattern"></div>
+
+    <div class="container">
+
+        <div class="row align-items-center min-vh-75">
+
+            <!-- TEXT -->
+            <div class="col-lg-6 order-2 order-lg-1">
+
+                <div class="dk-hero-content" data-aos="fade-up">
+
+                    <span class="dk-eyebrow">
+                        <i class="fas fa-star"></i>
+                        صُنع يدوياً بحب
+                    </span>
+
+                    <h1>
+                        تفاصيل صغيرة
+                        <span>تصنع فرقاً كبيراً</span>
+                    </h1>
+
+                    <p>
+                        في الذكان، كل قطعة لها حكاية.
+                        نصنع منتجاتنا يدوياً بعناية،
+                        لنقدم لك شيئاً مميزاً يشبهك.
+                    </p>
+
+                    <div class="dk-hero-actions">
+
+                       <a href="#categories" class="dk-btn dk-btn-primary">
+    اكتشفي منتجاتنا
+    <i class="fas fa-arrow-left"></i>
+</a>
+
+                        <a href="#about" class="dk-btn dk-btn-outline">
+                            لي تختاري الدكان 
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- LOGO / VISUAL -->
+            <div class="col-lg-6 order-1 order-lg-2">
+
+                <div class="dk-hero-visual" data-aos="zoom-in">
+
+                    <div class="dk-hero-glow"></div>
+
+                    <div class="dk-hero-logo">
+
+                        <img
+                            src="{% static 'img/logo.png' %}"
+                            alt="الذكان - Reham rady"
+                        >
+
+                    </div>
+
+                    <div class="dk-floating-card dk-card-top">
+
+                        <i class="fas fa-heart"></i>
+
+                        <div>
+                            <strong>صُنع بحب</strong>
+                            <span>تفاصيل يدوية مميزة</span>
+                        </div>
+
+                    </div>
+
+                    <div class="dk-floating-card dk-card-bottom">
+
+                        <i class="fas fa-star"></i>
+
+                        <div>
+                            <strong>لمسة خاصة</strong>
+                            <span>كل قطعة مختلفة</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     BRAND STRIP
+========================================================= -->
+<section class="dk-brand-strip">
+
+    <div class="container">
+
+        <div class="dk-brand-items">
+
+            <div>
+                <i class="fas fa-hand-holding-heart"></i>
+                <span>صُنع يدوياً</span>
+            </div>
+
+            <div>
+                <i class="fas fa-gem"></i>
+                <span>تفاصيل مميزة</span>
+            </div>
+
+            <div>
+                <i class="fas fa-feather"></i>
+                <span>لمسة فريدة</span>
+            </div>
+
+            <div>
+                <i class="fas fa-star"></i>
+                <span>اختيار بعناية</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CATEGORIES
+========================================================= -->
+<section id="categories" class="dk-categories dk-section">
+
+    <div class="container">
+
+        <div class="dk-section-heading text-center" data-aos="fade-up">
+
+            <span class="dk-section-label">
+                اكتشفي عالمنا
+            </span>
+
+            <h2>
+                اختاري ما
+                <span>يشبهك</span>
+            </h2>
+
+            <div class="dk-divider dk-divider-center">
+                <span></span>
+                <i class="fas fa-heart"></i>
+                <span></span>
+            </div>
+
+            <p>
+                مجموعة مختارة بعناية لتجدي القطعة
+                التي تناسب ذوقك.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4 mt-5">
+
+            {% for category in categories %}
+
+                <div class="col-6 col-lg-3"
+                     data-aos="fade-up"
+                     data-aos-delay="{{ forloop.counter0 }}00">
+
+                    <a href="{% url 'home:category_detail' category.id %}"
+                       class="dk-category-card">
+
+                        <!-- IMAGE -->
+                        <div class="dk-category-media">
+
+                            {% if category.image %}
+                                <img src="{{ category.image.url }}"
+                                     alt="{{ category.name }}"
+                                     loading="lazy">
+                            {% else %}
+                                <div class="dk-category-media-placeholder">
+                                    <i class="fas fa-gem"></i>
+                                </div>
+                            {% endif %}
+
+                            <span class="dk-category-overlay"></span>
+
+                            <span class="dk-category-count">
+                                <i class="fas fa-box-open"></i>
+                                {{ category.products.count|default:"0" }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- BODY -->
+                        <div class="dk-category-body">
+
+                            <h3>{{ category.name }}</h3>
+
+                            <p>
+                                {% if category.description %}
+                                    {{ category.description|truncatechars:60 }}
+                                {% else %}
+                                    اكتشفي مجموعتنا المميزة من
+                                    {{ category.name }}
+                                {% endif %}
+                            </p>
+
+                            <span class="dk-category-btn">
+                                تصفحي المجموعة
+                                <i class="fas fa-arrow-left"></i>
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            {% empty %}
+
+                <div class="col-12">
+
+                    <div class="dk-empty-state" data-aos="zoom-in">
+
+                        <div class="dk-empty-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+
+                        <h3>لا توجد تصنيفات حاليًا</h3>
+
+                        <p>
+                            سيتم إضافة التصنيفات قريباً.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     WHY US
+========================================================= -->
+<section id="about" class="dk-why dk-section">
+
+    <div class="container">
+
+        <div class="dk-section-heading text-center" data-aos="fade-up">
+
+            <span class="dk-section-label">
+                لماذا الذكان؟
+            </span>
+
+            <h2>
+                التفاصيل هي
+                <span>الفرق</span>
+            </h2>
+
+            <div class="dk-divider dk-divider-center">
+                <span></span>
+                <i class="fas fa-heart"></i>
+                <span></span>
+            </div>
+
+        </div>
+
+
+        <div class="row g-4 mt-4">
+
+            <div class="col-md-4" data-aos="fade-up">
+
+                <div class="dk-feature">
+
+                    <div class="dk-feature-icon">
+                        <i class="fas fa-hand-sparkles"></i>
+                    </div>
+
+                    <h3>صناعة يدوية</h3>
+
+                    <p>
+                        نهتم بكل تفصيلة ونمنح كل قطعة
+                        لمسة خاصة.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="dk-feature">
+
+                    <div class="dk-feature-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+
+                    <h3>جودة نهتم بها</h3>
+
+                    <p>
+                        نختار التفاصيل والخامات بعناية
+                        لنقدم تجربة مختلفة.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+
+                <div class="dk-feature">
+
+                    <div class="dk-feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+
+                    <h3>صنعت بحب</h3>
+
+                    <p>
+                        لأننا نؤمن أن الحب يظهر في
+                        التفاصيل الصغيرة.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PRODUCT MODAL
+========================================================= -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content dk-product-modal">
+
+            <button type="button"
+                    class="btn-close dk-modal-close"
+                    data-bs-dismiss="modal"
+                    aria-label="إغلاق"></button>
+
+            <div class="row g-0">
+
+                <div class="col-lg-6">
+
+                    <div class="dk-modal-gallery">
+
+                        <div class="dk-modal-main-image">
+
+                            <div class="dk-modal-loader" id="modalLoader">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+
+                            <img id="modalProductImage" src="" alt="">
+
+                        </div>
+
+                        <div class="dk-modal-thumbnails"
+                             id="modalProductThumbnails"></div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-6">
+
+                    <div class="dk-modal-info">
+
+                        <span class="dk-section-label">
+                            الذكان · صُنع يدوياً
+                        </span>
+
+                        <h2 id="modalProductName"></h2>
+
+                        <div class="dk-modal-price"
+                             id="modalProductPrice"></div>
+
+                        <p id="modalProductDescription"
+                           class="dk-modal-description"></p>
+
+                        <div class="dk-quantity-box">
+                            <label>الكمية</label>
+                            <div class="dk-quantity-controls">
+                                <button type="button" id="quantityMinus">−</button>
+                                <input type="number" id="productQuantity"
+                                       value="1" min="1" readonly>
+                                <button type="button" id="quantityPlus">+</button>
+                            </div>
+                        </div>
+
+                        <div id="customizationBox"
+                             class="dk-customization-box d-none">
+                            <label for="productNote">
+                                ملاحظات أو تفاصيل خاصة
+                            </label>
+                            <textarea id="productNote" rows="3"
+                                placeholder="اكتبي أي تفاصيل أو تخصيصات مطلوبة..."></textarea>
+                        </div>
+
+                        <button type="button"
+                                id="addToCartBtn"
+                                class="dk-btn dk-btn-primary w-100">
+                            اطلب الآن
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+<script>
+    window.addToCartUrl = "{% url 'home:add_to_cart' %}";
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const modalElement = document.getElementById("productModal");
+    if (!modalElement) return;
+
+    const productModal = new bootstrap.Modal(modalElement);
+
+    const productImage       = document.getElementById("modalProductImage");
+    const productName        = document.getElementById("modalProductName");
+    const productPrice       = document.getElementById("modalProductPrice");
+    const productDescription = document.getElementById("modalProductDescription");
+    const thumbnails         = document.getElementById("modalProductThumbnails");
+    const quantityInput      = document.getElementById("productQuantity");
+    const customizationBox   = document.getElementById("customizationBox");
+    const productNote        = document.getElementById("productNote");
+    const modalLoader        = document.getElementById("modalLoader");
+
+    let currentProductId = null;
+
+    document.querySelectorAll(".dk-product-view").forEach(button => {
+
+        button.addEventListener("click", async function () {
+
+            currentProductId = this.dataset.productId;
+
+            productImage.classList.remove("loaded");
+            modalLoader.style.display = "flex";
+
+            try {
+
+                const response = await fetch(`/product/${currentProductId}/`);
+                if (!response.ok) throw new Error("Failed");
+
+                const product = await response.json();
+
+                productName.textContent        = product.name;
+                productPrice.textContent       = `${product.price} ج.م`;
+                productDescription.textContent = product.description || "";
+
+                quantityInput.value = 1;
+                productNote.value   = "";
+
+                thumbnails.innerHTML = "";
+
+                if (product.images && product.images.length > 0) {
+
+                    productImage.onload = function () {
+                        modalLoader.style.display = "none";
+                        productImage.classList.add("loaded");
+                    };
+
+                    productImage.src = product.images[0];
+                    productImage.alt = product.name;
+
+                    product.images.forEach((image, index) => {
+
+                        const thumb = document.createElement("img");
+                        thumb.src       = image;
+                        thumb.alt       = product.name;
+                        thumb.className = "dk-modal-thumbnail";
+
+                        if (index === 0) thumb.classList.add("active");
+
+                        thumb.addEventListener("click", function () {
+
+                            productImage.classList.remove("loaded");
+                            modalLoader.style.display = "flex";
+
+                            productImage.onload = function () {
+                                modalLoader.style.display = "none";
+                                productImage.classList.add("loaded");
+                            };
+
+                            productImage.src = image;
+
+                            document.querySelectorAll(".dk-modal-thumbnail")
+                                .forEach(img => img.classList.remove("active"));
+
+                            this.classList.add("active");
+                        });
+
+                        thumbnails.appendChild(thumb);
+                    });
+
+                } else {
+                    productImage.src = "";
+                    modalLoader.style.display = "none";
+                }
+
+                if (product.allow_customization) {
+                    customizationBox.classList.remove("d-none");
+                } else {
+                    customizationBox.classList.add("d-none");
+                }
+
+                productModal.show();
+
+            } catch (error) {
+                console.error(error);
+                modalLoader.style.display = "none";
+                alert("حدث خطأ أثناء تحميل المنتج.");
+            }
+
+        });
+
+    });
+
+
+    document.getElementById("quantityPlus").addEventListener("click", function () {
+        quantityInput.value = parseInt(quantityInput.value) + 1;
+    });
+
+    document.getElementById("quantityMinus").addEventListener("click", function () {
+        const q = parseInt(quantityInput.value);
+        if (q > 1) quantityInput.value = q - 1;
+    });
+
+
+    document.getElementById("addToCartBtn")
+        .addEventListener("click", async function () {
+
+            if (!currentProductId) return;
+
+            const btn = this;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإضافة...';
+
+            try {
+
+                const response = await fetch(window.addToCartUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": getCookie("csrftoken")
+                    },
+                    body: JSON.stringify({
+                        product_id: currentProductId,
+                        quantity:   parseInt(quantityInput.value),
+                        note:       productNote.value.trim()
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    window.location.href = "/cart/added/";
+                } else {
+                    alert(data.message || "حدث خطأ أثناء إضافة المنتج.");
+                    btn.disabled = false;
+                    btn.innerHTML = 'اطلب الآن <i class="fas fa-arrow-left"></i>';
+                }
+
+            } catch (error) {
+                console.error(error);
+                alert("حدث خطأ أثناء إضافة المنتج.");
+                btn.disabled = false;
+                btn.innerHTML = 'اطلب الآن <i class="fas fa-arrow-left"></i>';
+            }
+
+        });
+
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.substring(0, name.length + 1) === name + "=") {
+                    cookieValue = decodeURIComponent(
+                        cookie.substring(name.length + 1)
+                    );
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+});
+</script>
+
+{% endblock body %}
