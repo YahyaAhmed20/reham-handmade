@@ -27,22 +27,19 @@ SECRET_KEY = 'django-insecure-w!!@patydw@@zna2a6#lnjamfjetjfqjfi&nu)1=2gxl@iyiyg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
-]
-# ALLOWED_HOSTS = [
-#     'seraperfume.up.railway.app',
-#      "127.0.0.1",
-#     "localhost",
-# ]
 
-# CSRF_TRUSTED_ORIGINS = [
-#     # "https://fiber-production-0802.up.railway.app",
-#     "https://seraperfume.up.railway.app",
+ALLOWED_HOSTS = [
+     'reham-handmade-production.up.railway.app',
+      "127.0.0.1",
+     "localhost",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+ "https://reham-handmade-production.up.railway.app",
+     "https://seraperfume.up.railway.app",
  
 
-# ]
+]
 
 # Application definition
 
